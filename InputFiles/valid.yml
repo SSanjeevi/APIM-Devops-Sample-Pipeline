@@ -1,0 +1,164 @@
+version: 0.0.1
+apimServiceName: apimServiceName
+policy: './globalServicePolicy.xml'
+apiVersionSets:
+    - id: 1
+      displayName: Api 1
+      description: api 1
+      versioningScheme: Query
+      versionQueryName: api-version
+apis:
+    - name: api1  # this name used in backendurl parameters file for updating the api url as a parameter file
+      type: http
+      displayName: API 1
+      description: 
+      serviceUrl:
+      openApiSpec: './apis/api1/1.0/Swagger.json'
+      policy: './apis/api1/1.0/apiServicePolicy.xml'
+      suffix: api1
+      subscriptionRequired: true
+      isCurrent: true
+      apiVersion:
+      apiVersionDescription: api 1 revision 1
+      apiVersionSetId: 1
+      apiRevision: 1
+      apiRevisionDescription: 
+      products: sampleproduct
+      tags: 
+      diagnostic:
+        name: applicationinsights
+        alwaysLog: allErrors
+        loggerId: AppInsightsWillbeUpdatedinParameter
+        sampling:
+          samplingType: fixed
+          percentage: 50
+        frontend:
+          request:
+            headers:
+            body:
+              bytes: 512
+          response:
+            headers:
+            body:
+              bytes: 512
+        backend:
+          request:
+            headers:
+            body:
+              bytes: 512
+          response:
+            headers:
+            body:
+              bytes: 512
+        enableHttpCorrelationHeaders: true
+        
+    - name: api1ver2
+      type: http
+      displayName: API 1
+      description: 
+      serviceUrl:
+      openApiSpec: './apis/api1/2.0/Swagger.json'
+      policy: './apis/api1/2.0/apiServicePolicy.xml'
+      suffix: api1
+      subscriptionRequired: true
+      isCurrent: true
+      apiVersion: 2
+      apiVersionDescription: api 1 revision 1
+      apiVersionSetId: 1
+      apiRevision: 1
+      apiRevisionDescription: 
+      products: sampleproduct
+      tags: 
+      diagnostic:
+        name: applicationinsights
+        alwaysLog: allErrors
+        loggerId: AppInsightsWillbeUpdatedinParameter
+        sampling:
+          samplingType: fixed
+          percentage: 50
+        frontend:
+          request:
+            headers:
+            body:
+              bytes: 512
+          response:
+            headers:
+            body:
+              bytes: 512
+        backend:
+          request:
+            headers:
+            body:
+              bytes: 512
+          response:
+            headers:
+            body:
+              bytes: 512
+        enableHttpCorrelationHeaders: true
+    - name: api2
+      type: http
+      displayName: API 2
+      description: 
+      serviceUrl:
+      openApiSpec: './apis/api2/1.0/Swagger.json'
+      policy: './apis/api2/1.0/apiServicePolicy.xml'
+      suffix: api2
+      subscriptionRequired: true
+      isCurrent: true
+      apiVersion:
+      apiVersionDescription: api 2 revision 1
+      apiVersionSetId: 
+      apiRevision: 1
+      apiRevisionDescription: 
+      products: sampleproduct
+      tags: 
+      diagnostic:
+        name: applicationinsights
+        alwaysLog: allErrors
+        loggerId: AppInsightsWillbeUpdatedinParameter
+        sampling:
+          samplingType: fixed
+          percentage: 50
+        frontend:
+          request:
+            headers:
+            body:
+              bytes: 512
+          response:
+            headers:
+            body:
+              bytes: 512
+        backend:
+          request:
+            headers:
+            body:
+              bytes: 512
+          response:
+            headers:
+            body:
+              bytes: 512
+        enableHttpCorrelationHeaders: true
+products:
+    - name: sampleproduct
+      displayName: sampleproduct
+      description: "sampleproduct"
+      terms: sampleproduct
+      subscriptionRequired: true
+      approvalRequired: false
+      subscriptionsLimit: 1
+      state: Published
+      policy: './products/SampleProductServicePolicy.xml'
+tags:
+    - displayName: sampleAPIM
+loggers:
+    - name: AppInsightsWillbeUpdatedinParameter
+      loggerType: applicationInsights
+      description: a app insights
+      credentials:
+        instrumentationKey: dummykey
+      isBuffered: true
+outputLocation: "./Output"
+linked: true
+baseFileName: BaseAPIMparameterized
+linkedTemplatesBaseUrl : "linkedtemplateurlParameterized"
+linkedTemplatesUrlQueryString : ""

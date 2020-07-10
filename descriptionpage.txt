@@ -1,0 +1,24 @@
+# Pipeline using Creator Tool
+
+This sample consists of Azure devops sample pipeline yaml file along with input files to this creator tool sample.
+
+### Sample Creator tool input files placed in this folder of this repo: 
+
+Creator tool Parameterized values are Backend urls, Appinsights, Appinsights Instrumentation key which will change for each environments.
+
+![Solution Structure](pipelineSample/SolutionStructure.PNG | Solution structure)
+
+Sample [valid.yml](pipelineSample/InputFiles/valid.yml "VALID YML") file
+
+Sample [BackendUrl.json](pipelineSample/InputFiles/TemplateAndParameters/SampleBackendUrlParameters.json "Backend Url JSON") file
+
+### Usage :
+
+`dotnet tool run apim-templates create --appInsightsInstrumentationKey $(VariableAppinsightsInstrumentationKey) --appInsightsName  $(VariableAppinsightsName) --configFile "./valid.yml" --backendurlconfigFile "./TemplateAndParameters/BackendUrlParameters.json"`
+
+where VariableAppinsightsInstrumentationKey, VariableAppinsightsName are variables we can pass in pipeline variables and the valid.yml file with api definition and description details, the Backendulrparameters.json file with urls of all the apis.
+
+![sample Pipeline Yaml file](pipelineSample/pipelinesample.PNG | Pipeline Yaml file sample)
+
+Full sample Structure: [Here](pipelineSample "Pipeline sample folder")
+

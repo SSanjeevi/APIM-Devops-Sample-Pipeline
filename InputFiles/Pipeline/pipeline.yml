@@ -1,0 +1,44 @@
+      - task: UseDotNet@2
+        displayName: $(Environment) Use Dotnet 2.1
+        inputs:
+          packageType: sdk
+          version: 2.1.807
+          installationPath: $(Agent.ToolsDirectory)/dotnet
+
+
+      - task: CmdLine@2
+        displayName: Create APIMTemplate Tool
+        inputs:
+          script: |
+            dotnet restore
+            dotnet pack -c Release
+            dotnet new tool-manifest
+            dotnet tool install --add-source "apimtemplate/bin/Release" apimtemplate
+          failOnStderr: true
+
+      - task: CmdLine@2
+        displayName: Generate ARM templates using Tool
+        inputs:
+          script: 'dotnet tool run apim-templates create --appInsightsInstrumentationKey $(VariableAppinsightsInstrumentationKey) --appInsightsName  $(VariableAppinsightsName) --configFile "./valid.yml" --backendurlconfigFile "./TemplateAndParameters/BackendUrlParameters.json"'          
+          failOnStderr: true
+
+
+      - task: AzurePowerShell@4
+        displayName: Deploy template
+        inputs:
+          azureSubscription: #service connection
+          ScriptType: InlineScript
+          inline: |
+            $Location = "$(location)" -replace " ",""
+
+            $DeploymentInputs = @{
+              Name                    = "$(resourceGroupForAPIMName)-master"
+              Location                = "$Location"
+              TemplateFile          = "mastertemplategenerated.json" 
+              DeploymentDebugLogLevel = "All"
+              Verbose                 = $true
+              ErrorAction             = "Stop"
+              TemplateParameterFile = "./TemplateAndParameters/parameters.json"
+            }
+            New-AzDeployment @DeploymentInputs
+          azurePowerShellVersion: LatestVersion

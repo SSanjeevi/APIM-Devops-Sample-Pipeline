@@ -1,0 +1,9 @@
+[{
+        "apiName": "api1", //same as api name in valid.yml file
+        "apiUrl": "https://dummyapi1.azurewebsites.net"
+    },
+    {
+        "apiName": "api2",
+        "apiUrl": "https://dummyapi2.azurewebsites.net"
+    }
+]
